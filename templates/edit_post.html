@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Post — {{ post['title'] }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container navbar">
+        <div class="brand">
+          <a href="{{ url_for('index') }}">Freelance Studio</a>
+        </div>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li>
+            <a href="{{ url_for('logout') }}"
+              >Logout ({{ session['username'] }})</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Edit Post</h1>
+      <form
+        action="{{ url_for('edit_post', slug=post['slug']) }}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label>Title</label>
+        <input type="text" name="title" value="{{ post['title'] }}" required />
+
+        <label>Profession</label>
+        <input
+          type="text"
+          name="profession"
+          value="{{ post['profession'] }}"
+          required
+        />
+
+        <label>Country</label>
+        <input
+          type="text"
+          name="country"
+          value="{{ post['country'] }}"
+          required
+        />
+
+        <label>Content</label>
+        <textarea name="content" required>{{ post['content'] }}</textarea>
+
+        <label>Image</label>
+        {% if post['image'] %}
+        <p>Current image:</p>
+        <img
+          src="{{ url_for('static', filename='uploads/' + post['image']) }}"
+          width="150"
+        />
+        {% endif %}
+        <input type="file" name="image" />
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </main>
+  </body>
+</html>

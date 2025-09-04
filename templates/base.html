@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Freelance Studio{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container navbar">
+        <div class="brand">
+          <a href="{{ url_for('index') }}">Freelance Studio</a>
+        </div>
+        <nav>
+          <a href="{{ url_for('index') }}">Home</a>
+          {% if 'username' in session %}
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <span
+            >{{ session['username'] }} |
+            <a href="{{ url_for('logout') }}">Logout</a></span
+          >
+          {% else %}
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('register') }}">Register</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container">{% block content %}{% endblock %}</main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div>© 2025 Freelance Studio</div>
+        <div class="footer-contact">
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

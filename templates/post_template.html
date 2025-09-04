@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ title }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container navbar">
+        <div class="brand">
+          <a href="{{ url_for('index') }}">Freelance Studio</a>
+        </div>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="card">
+        {% if image %}
+        <img
+          src="{{ url_for('static', filename='uploads/' + image) }}"
+          alt="{{ title }}"
+        />
+        {% endif %}
+        <h1 class="card-title">{{ title }}</h1>
+        <p class="card-meta">By {{ username }} • {{ country }}</p>
+        <p>{{ content }}</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div>© 2025 Freelance Studio</div>
+        <div class="footer-contact">
+          <a href="{{ url_for('index') }}">Home</a> |
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

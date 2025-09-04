@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block title %}Dashboard — My Posts{% endblock %} {%
+block content %}
+<h1>My Posts</h1>
+
+<!-- Форма створення нового посту -->
+<section class="form-panel" style="margin-bottom: 24px">
+  <h2>Create New Post</h2>
+  <form action="{{ url_for('dashboard') }}" method="POST">
+    <div class="form-grid one">
+      <div class="form-group">
+        <label class="label">Title</label>
+        <input type="text" name="title" class="input" required />
+      </div>
+      <div class="form-group">
+        <label class="label">Profession</label>
+        <input type="text" name="profession" class="input" required />
+      </div>
+      <div class="form-group full">
+        <label class="label">Country</label>
+        <input type="text" name="country" class="input" required />
+      </div>
+      <div class="form-group full">
+        <label class="label">Content</label>
+        <textarea name="content" class="textarea" required></textarea>
+      </div>
+      <div class="form-group full">
+        <button type="submit" class="btn">Create Post</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Список постів -->
+{% if posts %}
+<div class="card-grid">
+  {% for post in posts %}
+  <div class="card">
+    <div class="card-title">{{ post['title'] }}</div>
+    <div class="card-meta">
+      By {{ post['username'] }} • {{ post['country'] }}
+    </div>
+    <div class="btn-row">
+      <a href="{{ url_for('show_post', slug=post['slug']) }}" class="btn"
+        >View</a
+      >
+      <a
+        href="{{ url_for('edit_post', slug=post['slug']) }}"
+        class="btn secondary"
+        >Edit</a
+      >
+      <form
+        action="{{ url_for('delete_post', slug=post['slug']) }}"
+        method="POST"
+        style="display: inline"
+      >
+        <button type="submit" class="btn danger">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="no-results">You have no posts yet.</p>
+{% endif %} {% endblock %}
